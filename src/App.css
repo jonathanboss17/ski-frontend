@@ -20,3 +20,12 @@
 .App-link {
   color: #09d3ac;
 }
+
+path {
+  pointer-events: all;
+}
+path:hover {
+  opacity: 0.5;
+  cursor: auto;
+  background-color: navy; 
+}
