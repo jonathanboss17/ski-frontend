@@ -1,4 +1,5 @@
 import React from 'react'; 
+import ReactDOM from 'react-dom'
 import { ComposableMap, Geographies, Geography, ZoomableGroup, Marker, Markers } from "react-simple-maps";
 import {geoAlbersUsa} from "d3-geo";
 
@@ -29,21 +30,18 @@ export default class Map extends React.Component {
 
     render() {
         return (
-            // <div className="map-container">
-            //     <ComposableMap projection={geoAlbersUsa} projectionConfig={{ scale: 1000 }} width={980} height={551} style={{width: "100%", height: "auto"}}>
-            //         {/* <ZoomableGroup center={[ -97, 40 ]} disablePanning> */}
-            //             <Geographies geography={JSON.stringify(geoMap)}>
-            //                 {({geographies}) => 
-            //                     geographies.map((geography, i) => <Geography key={i} geography={geography}  
-            //                     style={ {default: {fill: "red", stroke: "#607D8B", strokeWidth: 0.75, outline: "none"}, hover: {fill: "#CFD8DC", stroke: "#607D8B", strokeWidth: 1, outline: "none"}, pressed: {fill: "#FF5722", stroke: "#607D8B", strokeWidth: 1, outline: "none"}} }
-            //                     />)
-            //                 }
-            //             </Geographies>
-            //         {/* </ZoomableGroup>  */}
-            //     </ComposableMap>
-            // </div>
-            <div>
-                Map Page
+            <div className="map-container">
+                <ComposableMap projection={geoAlbersUsa} projectionConfig={{ scale: 1000 }} width={980} height={551} style={{width: "100%", height: "auto"}}>
+                    {/* <ZoomableGroup center={[ -97, 40 ]} disablePanning> */}
+                        <Geographies geography={JSON.stringify(geoMap)}>
+                            {({geographies}) => 
+                                geographies.map((geography, i) => <Geography key={i} geography={geography}  
+                                style={ {default: {fill: "red", stroke: "#607D8B", strokeWidth: 0.75, outline: "none"}, hover: {fill: "#CFD8DC", stroke: "#607D8B", strokeWidth: 1, outline: "none"}, pressed: {fill: "#FF5722", stroke: "#607D8B", strokeWidth: 1, outline: "none"}} }
+                                />)
+                            }
+                        </Geographies>
+                    {/* </ZoomableGroup>  */}
+                </ComposableMap>
             </div>
         )
     }
