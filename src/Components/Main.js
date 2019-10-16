@@ -8,7 +8,7 @@ export default class Main extends React.Component {
         return (
             <div>
                 <NavBar />
-                <SearchBar />
+                <SearchBar handleSearchChange={this.props.handleSearchChange} handleSearchSubmit={this.props.handleSearchSubmit} redirect={this.props.redirect}/>
             </div> 
         )
     }

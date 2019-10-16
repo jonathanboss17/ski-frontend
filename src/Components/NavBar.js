@@ -28,7 +28,7 @@ export default class NavBar extends React.Component {
                 <Menu secondary inverted>
                     <Menu.Item name='home' id='main' onClick={this.handleClick}/>
                     <Menu.Item name='gear' id='gear' onClick={this.handleClick}/>
-                    <Menu.Item name='resorts' id='resorts' onClick={this.handleClick}/>
+                    {/* <Menu.Item name='resorts' id='resorts' onClick={this.handleClick}/> */}
            
                     <Menu.Menu position='right'>
 

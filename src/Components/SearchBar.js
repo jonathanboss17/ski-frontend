@@ -6,27 +6,18 @@ export default class SearchBar extends React.Component {
     // don't forget to add validations
     // the first id in the ski maps array is the most recent / current map
     // for the search bar create a system where it eliminates options based off what's typed in ... like pokemon lab
-    state = {
-        input: null
-    }
 
-    handleChange = (e) => {
-        this.setState({ input: e.target.value })
-    }
-
-    handleSubmit = () => {
-        console.log('submitted')
-    }
-
-    render() {
+    render() { 
         return (
             <Grid textAlign='center' style={{ height: '75vh' }} verticalAlign='middle' >
                 <Grid.Column style={{ maxWidth: 450 }}>
-                    <Form onSubmit={this.handleSubmit}>
+                    <Form onSubmit={this.props.handleSearchSubmit}>
                         <Header as='h1'>
-                            <Form.Input transparent size='massive' placeholder='Search Your Resort' onChange={this.handleChange} />
+                            <Form.Input transparent size='massive' placeholder='State' onChange={this.props.handleSearchChange} />
+                            {/* look at show no results */}
                         </Header>
                     </Form>
+                    {this.props.redirect()}
                 </Grid.Column>
             </Grid>
         )

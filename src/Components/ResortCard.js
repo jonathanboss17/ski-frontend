@@ -8,43 +8,33 @@ import { Card, Grid } from 'semantic-ui-react';
 export default class ResortCard extends React.Component {
     // temp_country: 184 ... all resorts in the US
 
-    state ={
-        loaded: false
-    }
-
-    isLoaded = () => {
-        if(this.props.resorts.length > 0){
-            this.setState({ loaded: true })
-        }
-    }
-
     renderUSResorts = () => {
-        for(let i = 0; i < 5; i++){
+
+            // const x = this.props.resorts.slice(0, 4)
+            // put this in a higher order component
+            // like the sushi lab
+        
+        return this.props.resorts.map(y => {
             return (
-                <Grid.Column>
-                    <Card>
-                        <Card.Content>
-                            <Card.Header>Jackson Hole</Card.Header>
-                        </Card.Content>
-                    </Card>
-                </Grid.Column>
+                <Grid.Row>
+                    <Grid.Column>
+                        <Card>
+                            <Card.Content>
+                                <Card.Header>{y.SkiArea.name}</Card.Header>
+                            </Card.Content>
+                        </Card>
+                    </Grid.Column>
+                </Grid.Row>
             )
-        }
+        })
    
     }
 
     render() {
-
-        const x = this.props.resorts.slice(0, 4)
-        x.map(y => {
-            return (
-                'hi'
-            )
-        })
         return (
-            <Grid.Row>
-                {this.renderUSResorts()}
-            </Grid.Row>
+            <Grid textAlign='center' container relaxed='very' columns={4} >
+                {this.props.resorts.length > 0 ? this.renderUSResorts() : null}
+            </Grid>
         )
     }
 }
