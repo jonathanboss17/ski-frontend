@@ -25,7 +25,7 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch('https://skimap.org/SkiAreas/index.json')
+    fetch('http://localhost:3000/resorts')
     .then(response => response.json())
     .then(data => {
         this.setState({ us_resorts: this.getUSResorts(data) })
@@ -33,25 +33,21 @@ export default class App extends React.Component {
   }
 
   getUSResorts = (data) => {
-    return data.filter(resort => resort.Region[0] !== undefined ? resort.Region[0].RegionsSkiArea.temp_country === '184' : null)
+    return data.filter(resort => resort.country_id === '184')
   }
-
-  isLoaded = () => this.state.us_resorts.length > 0 ? true : false
 
   //-----SEARCH BAR-------
 
   handleSearchChange = (e) => {
     this.setState({ input: e.target.value })
-    let x = this.isLoaded() ? this.state.us_resorts.filter(resort => resort.SkiArea.name.includes(this.state.input)) : null
-    return x !== null ? this.setState({filtered_resorts: x}) : null
+    let x = this.state.us_resorts.filter(resort => resort.resort_name.includes(this.state.input))
+    this.setState({filtered_resorts: x})
   }
 
   handleSearchSubmit = (e) => {
     e.preventDefault(); 
-    if(this.state.filtered_resorts.length === 1) {
-      this.setState({search_redirect: true})
-      this.setState({ ski_area_id: this.state.filtered_resorts[0].SkiArea.id })
-    }
+    this.setState({search_redirect: true})
+    this.setState({ ski_area_id: this.state.filtered_resorts[0].area_id })
   }
 
   searchRedirect = () => {
@@ -73,7 +69,6 @@ export default class App extends React.Component {
 
   render() {
     console.log(this.state.filtered_resorts)
-    console.log(this.state.ski_area_id)
     return (
       <div className='App'>
         <Switch> 

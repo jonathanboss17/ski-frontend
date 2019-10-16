@@ -3,6 +3,7 @@ import { Menu, Icon } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom'; 
 
 export default class NavBar extends React.Component {
+    // need to make this bigger
     // could have main search bar ... look for city, state and show all the resorts for that location ... and the resort page will just show all of the fucking resorts
 
     state = { path: null }

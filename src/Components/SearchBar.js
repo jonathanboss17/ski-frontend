@@ -13,7 +13,8 @@ export default class SearchBar extends React.Component {
                 <Grid.Column style={{ maxWidth: 450 }}>
                     <Form onSubmit={this.props.handleSearchSubmit}>
                         <Header as='h1'>
-                            <Form.Input transparent size='massive' placeholder='State' onChange={this.props.handleSearchChange} />
+                            <Form.Input transparent size='massive' placeholder='Search Your Resort' onChange={this.props.handleSearchChange} />
+                            {/* would look better if there was a semi-transparent box */}
                             {/* look at show no results */}
                         </Header>
                     </Form>
