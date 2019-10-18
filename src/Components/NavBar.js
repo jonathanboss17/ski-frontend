@@ -1,10 +1,13 @@
 import React from 'react'; 
-import { Menu, Icon } from 'semantic-ui-react'; 
+import { Menu, Icon, Sticky } from 'semantic-ui-react'; 
 import { Redirect } from 'react-router-dom'; 
+
 
 export default class NavBar extends React.Component {
     // need to make this bigger
     // could have main search bar ... look for city, state and show all the resorts for that location ... and the resort page will just show all of the fucking resorts
+
+    // contextRef = createref()
 
     state = { path: null }
 
@@ -19,17 +22,18 @@ export default class NavBar extends React.Component {
     }
 
     render(){
-
+        // Sticky not working ... need to edit
         if(this.state.path!==null){
             let y = `/${this.state.path}`
             return <Redirect to={y} />
         }
         
         return (
+            <Sticky>
                 <Menu secondary inverted>
                     <Menu.Item name='home' id='main' onClick={this.handleClick}/>
                     <Menu.Item name='gear' id='gear' onClick={this.handleClick}/>
-                    {/* <Menu.Item name='resorts' id='resorts' onClick={this.handleClick}/> */}
+                    <Menu.Item name='resorts' id='resorts' onClick={this.handleClick}/>
            
                     <Menu.Menu position='right'>
 
@@ -42,6 +46,7 @@ export default class NavBar extends React.Component {
 
                     </Menu.Menu>
                 </Menu>
+            </Sticky>
         )
     }
 }

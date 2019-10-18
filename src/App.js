@@ -20,8 +20,7 @@ export default class App extends React.Component {
     filtered_resorts: [],
     input: null,
     search_redirect: false, 
-    ski_area_id: null, 
-    ski_map_id: null
+    ski_area_id: null
   }
 
   componentDidMount() {
@@ -68,7 +67,6 @@ export default class App extends React.Component {
 
 
   render() {
-    console.log(this.state.filtered_resorts)
     return (
       <div className='App'>
         <Switch> 
@@ -77,7 +75,7 @@ export default class App extends React.Component {
           <Route exact path='/profile' component={Profile} />
           <Route exact path='/gear' component={Gear} />
           <Route exact path='/resorts' render={() => <Resorts resorts={this.state.us_resorts} />} />
-    <Route exact path='/resort/show' render={() => <ResortShowPage ski_area_id={this.state.ski_area_id}/>} />
+          <Route exact path='/resort/show' render={() => <ResortShowPage ski_area_id={this.state.ski_area_id}/>} />
         </Switch>
       </div>
     )
