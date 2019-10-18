@@ -3,8 +3,9 @@ import React from 'react';
 import GearCardHeader from './GearCardHeader';
 import GearCardDescription from './GearCardDescription'; 
 import CommentForm from './CommentForm'; 
+import GearCardModal from './GearCardModal'; 
 
-import { Card, Image } from 'semantic-ui-react'; 
+import { Card, Image, Modal, Header } from 'semantic-ui-react'; 
 
 
 export default class GearCard extends React.Component {
@@ -12,7 +13,7 @@ export default class GearCard extends React.Component {
     render() {
         return (
             <Card fluid>
-                <Image src={this.props.post.img} wrapped ui={false} />
+                <GearCardModal img={this.props.post.img}/>
                 <Card.Content>
                     <Card.Header>
                         <GearCardHeader />
