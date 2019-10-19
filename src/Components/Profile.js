@@ -1,22 +1,25 @@
 import React from 'react'; 
 import NavBar from './NavBar'; 
+import ProfileContainer from './ProfileContainer'; 
 
 export default class Profile extends React.Component {
 
     constructor(props){
         super(props)
         this.state = {
-            username: null
+            username: null, 
+            avatar: null, 
+            bio: null,
+            user_posts: []
         }
     }
     
     componentDidMount() {
-
         const reqObj = {
             headers: {
                 'Content-Type': 'application/json', 
                 'Accept': 'application/json', 
-                'Authorization': `Bearer ${this.props.location.state}`
+                'Authorization': localStorage.getItem('jwt')
             }
         }
 
@@ -24,6 +27,12 @@ export default class Profile extends React.Component {
         .then(response => response.json())
         .then(data => {
             console.log(data)
+            this.setState({
+                username: data.username, 
+                avatar: data.avatar, 
+                bio: data.bio,
+                user_posts: data.posts
+            })
         })
     }
 
@@ -31,7 +40,7 @@ export default class Profile extends React.Component {
         return (
             <div>
                 <NavBar />
-                Profile Page
+                <ProfileContainer info={this.state} />
             </div> 
         )
     }

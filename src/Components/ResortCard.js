@@ -16,7 +16,6 @@ export default class ResortCard extends React.Component {
         
         return this.props.resorts.map(y => {
             return (
-                
                     <Grid.Column>
                         <Card>
                             <Card.Content>
@@ -24,7 +23,6 @@ export default class ResortCard extends React.Component {
                             </Card.Content>
                         </Card>
                     </Grid.Column>
-               
             )
         })
    

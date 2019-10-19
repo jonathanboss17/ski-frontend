@@ -23,10 +23,9 @@ export default class AuthForm extends React.Component {
         fetch('http://localhost:3000/login', reqObj)
         .then(response => response.json())
         .then(data => {
-            // localStorage.setItem("jwt", data.jwt)
+            localStorage.setItem("jwt", data.jwt)
             // localStorage.clear()
-            this.props.history.push("/profile", data.jwt)
-            return <Redirect to="/profile" />
+            // return <Redirect to="/profile" />
         })
       }
     
@@ -40,7 +39,7 @@ export default class AuthForm extends React.Component {
         return (
             <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle' >
                 <Grid.Column style={{ maxWidth: 450 }}>
-                    <Header as='h2' color='blue' textAlign='center'>Log-in to your account</Header>
+                    <Header as='h2' inverted textAlign='center'>Log-in to your account</Header>
                     <Form size='large' onSubmit={this.handleSubmit}>
                         <Segment stacked>
                             <Form.Input fluid icon='user' iconPosition='left' placeholder="username" name='username' value={this.state.username} onChange={this.handleChange} />
