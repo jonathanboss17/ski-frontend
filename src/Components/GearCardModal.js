@@ -4,7 +4,7 @@ import { Modal, Image, Header } from 'semantic-ui-react';
 
 const GearCardModal = (props) => {
     return (
-        <Modal trigger={<Image src={props.img} wrapped ui={false} className='GearCard-main-img'/>} size='huge'>
+        <Modal trigger={<Image src={props.img} wrapped ui={false} className='GearCard-main-img'/>} size='fullscreen'>
             <Modal.Header>Select a Photo</Modal.Header>
             <Modal.Content image>
                 <Image wrapped size='massive' src={props.img} />

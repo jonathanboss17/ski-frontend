@@ -10,6 +10,11 @@ import Main from './Components/Main';
 import Gear from './Components/Gear'; 
 import Resorts from './Components/Resorts'; 
 import ResortShowPage from './Components/ResortShowPage'; 
+import SignUpForm from './Components/SignUpForm'; 
+import NavBar from './Components/NavBar'; 
+import Post from './Components/Post'; 
+import Users from './Components/Users';
+import SearchedUsersShowPage from './Components/SearchedUsersShowPage'; 
 
 import './Styling/App.css';
  
@@ -20,19 +25,43 @@ export default class App extends React.Component {
     filtered_resorts: [],
     input: null,
     search_redirect: false, 
-    ski_area_id: null
+    ski_area_id: null,
+    user: null, 
+    searched_user: null
   }
 
   componentDidMount() {
-    fetch('http://localhost:3000/resorts')
-    .then(response => response.json())
+    const reqObj = {
+      headers: {
+          'Content-Type': 'application/json', 
+          'Accept': 'application/json', 
+          'Authorization': localStorage.getItem('jwt')
+      }
+    }
+
+    Promise.all([
+      fetch('http://localhost:3000/resorts'), 
+      fetch('http://localhost:3000/profile', reqObj)
+    ])
+    .then((results) => Promise.all(results.map(r => r.json())))
     .then(data => {
-        this.setState({ us_resorts: this.getUSResorts(data) })
+      this.setState({ user: data[1] })
+      this.setState({ us_resorts: this.getUSResorts(data[0])})
     })
   }
 
   getUSResorts = (data) => {
     return data.filter(resort => resort.country_id === '184')
+  }
+
+  setSearchedUser = (username) => {
+    this.setState({ searched_user: username})
+  }
+
+  //  ----- LOG OUT USER -------
+
+  clearUser = () => {
+    this.setState({ user: null})
   }
 
   //-----SEARCH BAR-------
@@ -55,27 +84,24 @@ export default class App extends React.Component {
       return <Redirect to='/resort/show' />
       // redirects fine ... but NavBar disappears ... don't know how to address just yet
     }
-
   }
-  // time delay when searching
-
-  // ----------RESORT SHOW PAGE-------------
-
-  // use Promise.all in componentDidMount to send multiple fetch requests
-  // ---------------------
-
-
 
   render() {
     return (
       <div className='App'>
         <Switch> 
-          <Route exact path='/main' render={() => <Main handleSearchChange={this.handleSearchChange} handleSearchSubmit={this.handleSearchSubmit} redirect={this.searchRedirect} />} />
+          <Route exact path='/' render={() => <Main
+          //  clearUser={this.clearUser}
+            handleSearchChange={this.handleSearchChange} handleSearchSubmit={this.handleSearchSubmit} redirect={this.searchRedirect} />} />
           <Route exact path='/login' component={AuthForm} />
-          <Route exact path='/profile' component={Profile} />
-          <Route exact path='/gear' component={Gear} />
+          <Route exact path='/profile' render={() => <Profile user={this.state.user}/>} />
+          <Route exact path='/gear' render={() => <Gear />} />
           <Route exact path='/resorts' render={() => <Resorts resorts={this.state.us_resorts} />} />
           <Route exact path='/resort/show' render={() => <ResortShowPage ski_area_id={this.state.ski_area_id}/>} />
+          <Route exact path='/signup' component={SignUpForm} />
+          <Route exact path='/post' component={Post} />
+          <Route exact path='/users' render={() => <Users setSearchedUser={this.setSearchedUser} />} />
+          <Route exact path='/searchedusersshow' component={SearchedUsersShowPage}/>
         </Switch>
       </div>
     )

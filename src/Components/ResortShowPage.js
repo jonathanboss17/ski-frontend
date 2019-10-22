@@ -49,7 +49,6 @@ export default class ResortShowPage extends React.Component {
             return parser.parseStringPromise(x)
         })
         .then(result => {
-            console.log(result)
             this.setState({map: result.skiMap.thumbnail[5].$.url} )
             this.setState({ modal_img: result.skiMap.thumbnail[5].$.url })
             // this.setState({ modal_img: result.skiMap.unprocessed[0].$.url })

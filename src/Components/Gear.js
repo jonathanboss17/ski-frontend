@@ -1,8 +1,9 @@
 import React from 'react';
-import NavBar from './NavBar';
 import GearCard from './GearCard'; 
 
 import { Grid, Card, Header } from 'semantic-ui-react'; 
+
+import NavBar from './NavBar'; 
 
 export default class Gear extends React.Component {
 
@@ -21,7 +22,7 @@ export default class Gear extends React.Component {
     renderCards = () => {
         return this.state.posts.map(post => {
             return (
-                <GearCard post={post} />
+                <GearCard post={post} user={this.props.user}/>
             )
         })
     }

@@ -2,18 +2,14 @@ import React from 'react';
 
 import { List, Icon } from 'semantic-ui-react'; 
 
-const GearCardHeader = () => {
+const GearCardHeader = (props) => {
     return (
-        <List horizontal>
+        <List horizontal size="huge">
             <List.Item>
-                <a>
-                    <Icon color='red' name='heart outline' size='large'/>
-                </a>
+                <Icon color='black' name='heart outline' onClick={props.handleLikes}/>
             </List.Item>
             <List.Item>
-                <a>
-                    <Icon name="comment outline" size='large'/>
-                </a>
+                <Icon color='black' name="comment outline"/>
             </List.Item>
         </List>
     )

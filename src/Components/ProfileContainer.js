@@ -7,13 +7,13 @@ import UserPostsMenu from './UserPostsMenu.js';
 import { Container, Grid, Segment } from 'semantic-ui-react'; 
 
 const ProfileContainer = (props) => {
-    console.log(props)
+    console.log(props.user)
     return (
         <Container>
             <Segment> 
                 <Grid container centered columns={1}>
                     <Grid.Column textAlign='center' width={12}>
-                        <UserInfo info={props.info} />
+                        <UserInfo user={props.user} />
                         <UserPostsMenu />
                     </Grid.Column>
                 </Grid> 
@@ -22,7 +22,7 @@ const ProfileContainer = (props) => {
                 <br></br>
                 <br></br>
                 <br></br>
-                <UsersPosts info={props.info} />
+                <UsersPosts user={props.user} />
             </Segment>
         </Container>
     )

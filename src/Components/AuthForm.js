@@ -1,13 +1,16 @@
 import React from 'react'; 
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'; 
 
+import NavBar from './NavBar'; 
+
 import { Link, Redirect } from 'react-router-dom'; 
 
 export default class AuthForm extends React.Component {
 
     state = {
         username: '', 
-        password: ''
+        password: '', 
+        redirect: false
     }
 
     handleSubmit = (e) => {
@@ -23,10 +26,17 @@ export default class AuthForm extends React.Component {
         fetch('http://localhost:3000/login', reqObj)
         .then(response => response.json())
         .then(data => {
+            localStorage.setItem('user_id', data.user.id)
             localStorage.setItem("jwt", data.jwt)
-            // localStorage.clear()
-            // return <Redirect to="/profile" />
+            this.setState({ redirect: true })
         })
+      }
+
+      handleRedirect = () => {
+        if(this.state.redirect){
+            this.setState({redirect: false})
+            return <Redirect to='/' />
+        }
       }
     
       handleChange = (e) => {
@@ -36,7 +46,10 @@ export default class AuthForm extends React.Component {
       }
 
     render() {
+
         return (
+          <div>
+            <NavBar />
             <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle' >
                 <Grid.Column style={{ maxWidth: 450 }}>
                     <Header as='h2' inverted textAlign='center'>Log-in to your account</Header>
@@ -54,7 +67,9 @@ export default class AuthForm extends React.Component {
                     </Message>
 
                 </Grid.Column>
+                {this.handleRedirect()}
             </Grid>
+          </div>
         )
     }
 }

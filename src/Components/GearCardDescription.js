@@ -6,7 +6,7 @@ const GearCardDescription = (props) => {
     return (
         <List horizontal>
             <List.Item>
-                <Header as='h5'>username</Header>
+                <Header as='h5'>{props.username}</Header>
             </List.Item>
             <List.Item>
                 {props.caption}
