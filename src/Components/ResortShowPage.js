@@ -1,5 +1,4 @@
 import React from 'react'; 
-import NavBar from './NavBar';
 
 import { Segment, Image, Grid, Header, List, Modal, Button } from 'semantic-ui-react';
 
@@ -60,7 +59,6 @@ export default class ResortShowPage extends React.Component {
     render() {
         return (
             <div id="resort_show">
-                <NavBar />
                 <Header inverted as='h2'>{this.state.name}</Header>
                 <br></br>
                 <Grid textAlign='center'>

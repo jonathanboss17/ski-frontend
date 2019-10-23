@@ -31,23 +31,19 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    const reqObj = {
-      headers: {
-          'Content-Type': 'application/json', 
-          'Accept': 'application/json', 
-          'Authorization': localStorage.getItem('jwt')
-      }
-    }
+    let token = localStorage.getItem('user_id')
 
-    Promise.all([
-      fetch('http://localhost:3000/resorts'), 
-      fetch('http://localhost:3000/profile', reqObj)
-    ])
-    .then((results) => Promise.all(results.map(r => r.json())))
-    .then(data => {
-      this.setState({ user: data[1] })
-      this.setState({ us_resorts: this.getUSResorts(data[0])})
-    })
+    if(token){
+      Promise.all([
+        fetch('http://localhost:3000/resorts'), 
+        fetch(`http://localhost:3000/users/${token}`)
+      ])
+      .then((results) => Promise.all(results.map(r => r.json())))
+      .then(data => {
+        this.setState({ user: data[1] })
+        this.setState({ us_resorts: this.getUSResorts(data[0])})
+      })
+    }
   }
 
   getUSResorts = (data) => {
@@ -87,15 +83,17 @@ export default class App extends React.Component {
   }
 
   render() {
+    console.log(this.state.user)
     return (
       <div className='App'>
+        <NavBar />
         <Switch> 
           <Route exact path='/' render={() => <Main
           //  clearUser={this.clearUser}
             handleSearchChange={this.handleSearchChange} handleSearchSubmit={this.handleSearchSubmit} redirect={this.searchRedirect} />} />
           <Route exact path='/login' component={AuthForm} />
           <Route exact path='/profile' render={() => <Profile user={this.state.user}/>} />
-          <Route exact path='/gear' render={() => <Gear />} />
+          <Route exact path='/gear' render={() => <Gear user={this.state.user} />} />
           <Route exact path='/resorts' render={() => <Resorts resorts={this.state.us_resorts} />} />
           <Route exact path='/resort/show' render={() => <ResortShowPage ski_area_id={this.state.ski_area_id}/>} />
           <Route exact path='/signup' component={SignUpForm} />

@@ -1,6 +1,5 @@
 import React from 'react'; 
 
-import NavBar from './NavBar'; 
 import PostImageUploader from './PostImageUploader'; 
 
 import { Header, Form, Grid, Segment } from 'semantic-ui-react'; 
@@ -36,7 +35,6 @@ export default class Post extends React.Component {
     render() {
         return (
             <div>
-                <NavBar />
                 <Grid textAlign='center' style={{ height: '50vh' }} verticalAlign='middle'>
                     <Grid.Column style={{ maxWidth: 450 }}>
                         <Segment>

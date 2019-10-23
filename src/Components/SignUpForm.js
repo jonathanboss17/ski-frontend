@@ -1,12 +1,10 @@
 import React from 'react'; 
 
 import { Grid, Form, Header, Segment } from 'semantic-ui-react'; 
+import { withRouter } from 'react-router-dom'; 
+import UserImageUploader from './UserImageUploader'; 
 
-import ImageUploader from './UserImageUploader'; 
-
-export default class SignUpForm extends React.Component {
-    // have to upload image first
-    // cloudinary triggers fetch request for some reason
+class SignUpForm extends React.Component {
     state = {
         avatar: '', 
         username: '', 
@@ -42,32 +40,38 @@ export default class SignUpForm extends React.Component {
 
         fetch('http://localhost:3000/users', reqObj)
         .then(response => response.json())
-        .then(console.log)
+        .then(user => {
+            localStorage.setItem('user_id', user.id)
+            this.props.history.push('/')
+        })
     }
 
     render() {
-
         return (
-            <Grid textAlign='center' style={{ height: '95vh' }} verticalAlign='middle' >
+            <Grid textAlign='center' style={{ height: '85vh' }} verticalAlign='middle' >
                 <Grid.Column style={{ maxWidth: 600 }}>
                     <Segment>
-                        <Header as='h2' color='blue' textAlign='center'>Create Your Account</Header>
-                        <Form onSubmit={(e) => this.handleSubmit(e)}>
-                            <Form.Input width={6} label='Username' name='username' value={this.state.username} placeholder='jboss17' onChange={this.handleChange}/>
-                            <ImageUploader getAvatar={this.getAvatar} />
-                       
-                            <Form.Input width={7} label='Password' name='password' value={this.state.password} placeholder='skierboi5000' onChange={this.handleChange}/>
-                            
+                        <Segment>
+                            <Header as='h2' color='black' textAlign='center'>Sign Up</Header>
+                        </Segment>
+                        <br></br>
+                        <UserImageUploader getAvatar={this.getAvatar} />
+                        <br></br>
+                        <Form onSubmit={this.handleSubmit}>
+                            <Form.Group widths='equal'>
+                                <Form.Input label='Username' name='username' value={this.state.username} placeholder='jboss17' onChange={this.handleChange}/>
+                                <Form.Input label='Password' name='password' value={this.state.password} placeholder='skierboi5000' onChange={this.handleChange}/> 
+                            </Form.Group>
+                            <br></br>
                             <Form.TextArea label='Bio' name='bio' value={this.state.bio} placeholder='Tell us more about you...' onChange={this.handleChange}/>
-
-                            <Form.Checkbox label='I agree to the Terms and Conditions' />
+                            <br></br>
                             <Form.Button color='blue'>Submit</Form.Button>
                         </Form>
-
                     </Segment>
-
                 </Grid.Column>
             </Grid>
         )
     }
 }
+
+export default withRouter(SignUpForm)

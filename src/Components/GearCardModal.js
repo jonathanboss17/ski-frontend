@@ -1,10 +1,16 @@
 import React from 'react'; 
-
-import { Modal, Image, Header } from 'semantic-ui-react'; 
+import { Image, Transformation } from 'cloudinary-react'; 
+import { Modal, Header } from 'semantic-ui-react'; 
 
 const GearCardModal = (props) => {
     return (
-        <Modal trigger={<Image src={props.img} wrapped ui={false} className='GearCard-main-img'/>} size='fullscreen'>
+        <Modal trigger={
+
+        <Image publicId={props.img}>
+            <Transformation height='250' width='250' gravity='faces' crop='fill' />
+        </Image>
+        
+        } size='fullscreen'>
             <Modal.Header>Select a Photo</Modal.Header>
             <Modal.Content image>
                 <Image wrapped size='massive' src={props.img} />

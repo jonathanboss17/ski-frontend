@@ -34,7 +34,6 @@ export default class UsersPosts extends React.Component {
     }
 
     render() {
-        console.log(this.props.user)
         return (
             <Grid container relaxed='very' centered columns={3} celled>
                 <Grid.Row>

@@ -7,7 +7,6 @@ import UserPostsMenu from './UserPostsMenu.js';
 import { Container, Grid, Segment } from 'semantic-ui-react'; 
 
 const ProfileContainer = (props) => {
-    console.log(props.user)
     return (
         <Container>
             <Segment> 

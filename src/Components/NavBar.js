@@ -1,29 +1,21 @@
 import React from 'react'; 
 import { Menu, Icon, Sticky } from 'semantic-ui-react'; 
-import { Redirect } from 'react-router-dom'; 
+import { withRouter } from 'react-router-dom'; 
 
-
-export default class NavBar extends React.Component {
+class NavBar extends React.Component {
     // need to make this bigger
 
     state = { 
         path: null
     }
-
-    loggedIn = () => {
-        // here is where we display Log In if no user ... or Log Out if user logged in
-    }
     
     handleClick = (e) => {
-        this.setState({ path: e.target.id })
+        this.props.history.push(`/${e.target.id}`)
         if(e.target.id === 'logout'){
             localStorage.clear()
-            // this.props.clearUser()
-            this.setState({ path: 'login'})
-        }
+            this.props.history.push('/login')
+        } 
     }
-
-    
 
     renderLogButton = () => {
         return localStorage.length > 0 ? <Menu.Item name='logout' id='logout' onClick={this.handleClick} /> : <Menu.Item name='login' id='login' onClick={this.handleClick} />
@@ -31,11 +23,6 @@ export default class NavBar extends React.Component {
 
     render(){
         // Sticky not working ... need to edit
-        if(this.state.path!==null){
-            let y = `/${this.state.path}`
-            return <Redirect to={y} />
-        }
-        
         return (
             <Sticky>
                 <Menu secondary inverted size="massive">
@@ -58,3 +45,5 @@ export default class NavBar extends React.Component {
         )
     }
 }
+
+export default withRouter(NavBar)

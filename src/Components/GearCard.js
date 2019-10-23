@@ -16,15 +16,16 @@ class GearCard extends React.Component {
     }
 
     handleLikes = () => {
+        console.log('clicked')
         const x = this.state.like_count; 
         this.setState({ like_count: x+1 })
         
         const reqObj = {
             method: 'POST', 
-            header: {
+            headers: {
                 'Content-Type': 'application/json'
             }, 
-            body: JSON.stringify({ user_id: localStorage.getItem('user_id'), post_id: this.props.post.id })
+            body: JSON.stringify({ user_id: parseInt(localStorage.getItem('user_id')), post_id: this.props.post.id })
         }
 
         fetch('http://localhost:3000/likes', reqObj)
@@ -57,7 +58,7 @@ class GearCard extends React.Component {
         return this.state.comments.map(x => {
             return (
                 <List.Item>
-                    {x.comment}
+                   {x.comment}
                 </List.Item>
             )
         })

@@ -1,8 +1,6 @@
 import React from 'react'; 
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'; 
 
-import NavBar from './NavBar'; 
-
 import { Link, Redirect } from 'react-router-dom'; 
 
 export default class AuthForm extends React.Component {
@@ -48,9 +46,7 @@ export default class AuthForm extends React.Component {
     render() {
 
         return (
-          <div>
-            <NavBar />
-            <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle' >
+            <Grid textAlign='center' style={{ height: '85vh' }} verticalAlign='middle' >
                 <Grid.Column style={{ maxWidth: 450 }}>
                     <Header as='h2' inverted textAlign='center'>Log-in to your account</Header>
                     <Form size='large' onSubmit={this.handleSubmit}>
@@ -69,7 +65,6 @@ export default class AuthForm extends React.Component {
                 </Grid.Column>
                 {this.handleRedirect()}
             </Grid>
-          </div>
         )
     }
 }

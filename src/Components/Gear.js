@@ -3,8 +3,6 @@ import GearCard from './GearCard';
 
 import { Grid, Card, Header } from 'semantic-ui-react'; 
 
-import NavBar from './NavBar'; 
-
 export default class Gear extends React.Component {
 
     state = {
@@ -15,7 +13,12 @@ export default class Gear extends React.Component {
         fetch('http://localhost:3000/posts')
         .then(response => response.json())
         .then(data => {
-            this.setState({ posts: data })
+            if(this.props){
+                this.props.user.following.forEach(x => {
+                    let z = data.filter(y => y.user.username === x.username)
+                    this.setState({ posts: [...this.state.posts, z].flat()})
+                })
+            }
         })
     }
 
@@ -29,8 +32,7 @@ export default class Gear extends React.Component {
 
     render(){
         return (
-            <div id="gear"> 
-                <NavBar />
+            <div id="gear">
                 <Header as='h2'inverted>Gear Feed</Header>
                 <br></br>
                 <Grid centered container columns='equal'>

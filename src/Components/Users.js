@@ -1,22 +1,23 @@
 import React from 'react'; 
+import _ from 'lodash';
 
-import NavBar from './NavBar'; 
-
-import { Header, Grid, Dropdown, Form } from 'semantic-ui-react'; 
+import { Header, Grid, Search, Form } from 'semantic-ui-react'; 
 
 import { Redirect } from 'react-router-dom'; 
 
 export default class Users extends React.Component {
 
     state = {
-        users: [], 
-        user: {
-            key: null, 
+        users: [],
+        results: [], 
+        user: { 
             text: null, 
             value: null, 
             image: null
         }, 
-        redirect: false 
+        redirect: false, 
+        isLoading: false, 
+        value: ''
     }
 
     componentDidMount = () => {
@@ -33,9 +34,8 @@ export default class Users extends React.Component {
         this.setState({
             user: {
                 ...this.state.user,
-                key: user.id,
-                text: user.username,
-                value: user.username, 
+                title: user.username,
+                description: user.bio, 
                 image: { avatar: true, src: user.avatar }
             }
         }) 
@@ -49,8 +49,26 @@ export default class Users extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault(); 
-        localStorage.setItem('searched_user', e.target.childNodes[0].innerText)
+        localStorage.setItem('searched_user', this.state.value)
         this.setState({ redirect: true })
+    }
+
+    handleResultSelect = (e, { result }) => this.setState({ value: result.title })
+  
+    handleSearchChange = (e, { value }) => {
+      this.setState({ isLoading: true, value })
+  
+      setTimeout(() => {
+        if (this.state.value.length < 1) console.log('RESET')
+  
+        const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
+        const isMatch = (result) => re.test(result.title)
+  
+        this.setState({
+          isLoading: false,
+          results: _.filter(this.state.users, isMatch),
+        })
+      }, 300)
     }
 
     render() {
@@ -59,26 +77,25 @@ export default class Users extends React.Component {
             this.setState({ redirect: false})
             return <Redirect to='/searchedusersshow' />
         }
-
+  
         return (
-            <div>
-                <NavBar />
-                <Grid textAlign='center' style={{ height: '20vh' }} verticalAlign='middle' >
-                    <Grid.Column style={{ maxWidth: 450 }}>
-                    <Header inverted as='h2'>Search Users</Header>
-                        <Form onSubmit={this.handleSubmit}>
-                                <Dropdown
-                                    clearable
-                                    fluid
-                                    selection
-                                    options={this.state.users}
-                                    search
-                                    placeholder='Search A User'
-                                />
-                        </Form>
-                    </Grid.Column>
-                </Grid>
-            </div>
+            <Grid textAlign='center' style={{ height: '20vh' }} verticalAlign='middle' >
+                <Grid.Column style={{ maxWidth: 450 }}>
+                <Header inverted as='h2'>Search Users</Header>
+                    <Form onSubmit={this.handleSubmit}>
+                            <Search
+                                loading={this.state.isLoading}
+                                onResultSelect={this.handleResultSelect}
+                                onSearchChange={_.debounce(this.handleSearchChange, 500, {
+                                leading: true,
+                                })}
+                                results={this.state.results}
+                                value={this.state.value}
+                                {...this.props}
+                            />
+                    </Form>
+                </Grid.Column>
+            </Grid>
         )
     }
 }
