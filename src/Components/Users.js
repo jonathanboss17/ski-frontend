@@ -11,8 +11,8 @@ export default class Users extends React.Component {
         users: [],
         results: [], 
         user: { 
-            text: null, 
-            value: null, 
+            title: null, 
+            description: null, 
             image: null
         }, 
         redirect: false, 
@@ -77,13 +77,16 @@ export default class Users extends React.Component {
             this.setState({ redirect: false})
             return <Redirect to='/searchedusersshow' />
         }
-  
+        
         return (
             <Grid textAlign='center' style={{ height: '20vh' }} verticalAlign='middle' >
                 <Grid.Column style={{ maxWidth: 450 }}>
                 <Header inverted as='h2'>Search Users</Header>
                     <Form onSubmit={this.handleSubmit}>
                             <Search
+                                fluid
+                                size='massive'
+                                placeholder='Search users...'
                                 loading={this.state.isLoading}
                                 onResultSelect={this.handleResultSelect}
                                 onSearchChange={_.debounce(this.handleSearchChange, 500, {

@@ -6,15 +6,17 @@ class NavBar extends React.Component {
     // need to make this bigger
 
     state = { 
-        path: null
+        path: null, 
+        activeItem: ''
     }
     
     handleClick = (e) => {
-        this.props.history.push(`/${e.target.id}`)
+        this.setState({ activeItem: e.target.id})  
         if(e.target.id === 'logout'){
             localStorage.clear()
             this.props.history.push('/login')
-        } 
+        }
+        this.props.history.push(`/${e.target.id}`)
     }
 
     renderLogButton = () => {
@@ -24,21 +26,20 @@ class NavBar extends React.Component {
     render(){
         // Sticky not working ... need to edit
         return (
-            <Sticky>
-                <Menu secondary inverted size="massive">
-                    <Menu.Item name='home' id='' onClick={this.handleClick}/>
-                    <Menu.Item name='gear' id='gear' onClick={this.handleClick}/>
-                    <Menu.Item name='resorts' id='resorts' onClick={this.handleClick}/>
-                    <Menu.Item name="post" id="post" onClick={this.handleClick}/>
-                    <Menu.Item name='users' id='users' onClick={this.handleClick} />
+            <Sticky className='NavBar'>
+                <Menu pointing secondary size="massive">
+                    <Menu.Item name='home' id='home' active={this.state.activeItem === 'home'} onClick={this.handleClick}/>
+                    <Menu.Item name='gear' id='gear' active={this.state.activeItem === 'gear'} onClick={this.handleClick}/>
+                    <Menu.Item name='resorts' id='resorts' active={this.state.activeItem === 'resorts'} onClick={this.handleClick}/>
+                    <Menu.Item name="post" id="post" active={this.state.activeItem === 'post'} onClick={this.handleClick}/>
+                    <Menu.Item name='users' id='users' active={this.state.activeItem === 'users'} onClick={this.handleClick} />
                    
            
-                    <Menu.Menu position='right'>
-                        <Menu.Item id='profile' onClick={this.handleClick}>
-                        {/* i lose the semantic if i put the listener on the Icon ... but now I can only click around the Icon */}
-                            <Icon name='user' />
+                    <Menu.Menu position='right'>       
+                        <Menu.Item name='user' id='profile' active={this.state.activeItem === 'profile'} onClick={this.handleClick}>                
+                            <Icon name='user' />                        
                         </Menu.Item>
-                        {this.renderLogButton()}
+                         {this.renderLogButton()}
                     </Menu.Menu>
                 </Menu>
             </Sticky>

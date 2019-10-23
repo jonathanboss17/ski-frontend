@@ -5,7 +5,7 @@ export default class Main extends React.Component {
 
     render(){
         return (
-            <SearchBar handleSearchChange={this.props.handleSearchChange} handleSearchSubmit={this.props.handleSearchSubmit} redirect={this.props.redirect}/>
+            <SearchBar getId={this.props.getId} resorts={this.props.resorts} />
         )
     }
 }

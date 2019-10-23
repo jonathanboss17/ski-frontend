@@ -1,9 +1,8 @@
 import React from 'react';
 // import { MapInteractionCSS } from 'react-map-interaction';
 
-import { Switch, Route, Redirect } from 'react-router-dom'; 
+import { Switch, Route } from 'react-router-dom'; 
 
-// import Map from './Components/Map';
 import AuthForm from './Components/AuthForm';  
 import Profile from './Components/Profile'; 
 import Main from './Components/Main'; 
@@ -21,13 +20,17 @@ import './Styling/App.css';
 export default class App extends React.Component {
 
   state = {
-    us_resorts: [],
+    resorts: [],
     filtered_resorts: [],
     input: null,
-    search_redirect: false, 
     ski_area_id: null,
     user: null, 
-    searched_user: null
+    searched_user: null, 
+    search_resort: {
+      title: '', 
+      description: ''
+    }, 
+    search_resorts: []
   }
 
   componentDidMount() {
@@ -41,13 +44,30 @@ export default class App extends React.Component {
       .then((results) => Promise.all(results.map(r => r.json())))
       .then(data => {
         this.setState({ user: data[1] })
-        this.setState({ us_resorts: this.getUSResorts(data[0])})
+        this.setState({ resorts: data[0] })
+
+        this.state.resorts.forEach(resort => {
+            this.setSearchedResorts(this.setSearchedResort(resort))
+        })
+
       })
     }
   }
 
-  getUSResorts = (data) => {
-    return data.filter(resort => resort.country_id === '184')
+  setSearchedResort = (resort) => {
+    this.setState({ 
+      search_resort: {
+        ...this.state.search_resort, 
+        title: resort.resort_name, 
+        description: resort.region_name, 
+        id: resort.area_id
+      }
+    })
+    return this.state.search_resort
+  }
+
+  setSearchedResorts = (resort) => {
+      this.setState({ search_resorts: [...this.state.search_resorts, resort] })
   }
 
   setSearchedUser = (username) => {
@@ -62,39 +82,20 @@ export default class App extends React.Component {
 
   //-----SEARCH BAR-------
 
-  handleSearchChange = (e) => {
-    this.setState({ input: e.target.value })
-    let x = this.state.us_resorts.filter(resort => resort.resort_name.includes(this.state.input))
-    this.setState({filtered_resorts: x})
-  }
-
-  handleSearchSubmit = (e) => {
-    e.preventDefault(); 
-    this.setState({search_redirect: true})
-    this.setState({ ski_area_id: this.state.filtered_resorts[0].area_id })
-  }
-
-  searchRedirect = () => {
-    if(this.state.search_redirect){
-      this.setState({search_redirect: false})
-      return <Redirect to='/resort/show' />
-      // redirects fine ... but NavBar disappears ... don't know how to address just yet
-    }
+  getSkiAreaId = (value) => {
+    this.setState({ ski_area_id: value})
   }
 
   render() {
-    console.log(this.state.user)
     return (
       <div className='App'>
         <NavBar />
         <Switch> 
-          <Route exact path='/' render={() => <Main
-          //  clearUser={this.clearUser}
-            handleSearchChange={this.handleSearchChange} handleSearchSubmit={this.handleSearchSubmit} redirect={this.searchRedirect} />} />
+          <Route exact path='/home' render={() => <Main getId={this.getSkiAreaId} resorts={this.state.search_resorts}/>} />
           <Route exact path='/login' component={AuthForm} />
           <Route exact path='/profile' render={() => <Profile user={this.state.user}/>} />
           <Route exact path='/gear' render={() => <Gear user={this.state.user} />} />
-          <Route exact path='/resorts' render={() => <Resorts resorts={this.state.us_resorts} />} />
+          <Route exact path='/resorts' render={() => <Resorts resorts={this.state.resorts} />} />
           <Route exact path='/resort/show' render={() => <ResortShowPage ski_area_id={this.state.ski_area_id}/>} />
           <Route exact path='/signup' component={SignUpForm} />
           <Route exact path='/post' component={Post} />
