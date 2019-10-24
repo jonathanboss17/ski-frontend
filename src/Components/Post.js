@@ -32,9 +32,12 @@ class Post extends React.Component {
         }
 
         fetch('http://localhost:3000/posts', reqObj)
-        .then(() => {
-            this.props.history.push('/gear')
+        .then(response => response.json())
+        .then(data => {
+            this.props.history.push('/feed')
+            this.props.getCurrentPosts(data)
         })
+  
     }
 
     

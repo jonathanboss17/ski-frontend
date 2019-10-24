@@ -2,13 +2,21 @@ import React from 'react';
 
 import { Button } from 'semantic-ui-react'; 
 
-export default class DeleteProfile extends React.Component {
+import { withRouter } from 'react-router-dom'; 
+
+class DeleteProfile extends React.Component {
 
     handleDelete = () => {
         const reqObj = {
             method: 'DELETE'
         }
-        fetch(`http://localhost:3000/users/${localStorage.getItem('user_id')}`, reqObj)
+        fetch(`http://localhost:3000/users/${parseInt(localStorage.getItem('user_id'))}`, reqObj)
+        .then(response => console.log(response))
+        .then(() => {
+            localStorage.clear()
+            this.props.history.push('/home')
+        })
+        
     }
 
     render() {
@@ -17,3 +25,5 @@ export default class DeleteProfile extends React.Component {
         )
     }
 }
+
+export default withRouter(DeleteProfile)

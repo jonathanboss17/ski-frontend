@@ -5,7 +5,7 @@ import { List, Icon } from 'semantic-ui-react';
 const GearCardHeader = (props) => {
     return (
         <div>
-            <Icon name='like' onClick={props.handleLikes} size='large'/>
+            <Icon name='heart outline' onClick={props.handleLikes} size='large'/>
         </div>
     )
 }

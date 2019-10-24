@@ -1,7 +1,7 @@
 import React from 'react';
 import GearCard from './GearCard'; 
 
-import { Grid, Card, Header } from 'semantic-ui-react'; 
+import { Grid, Card, Header, Container, Image } from 'semantic-ui-react'; 
 
 export default class Gear extends React.Component {
 
@@ -30,15 +30,28 @@ export default class Gear extends React.Component {
         })
     }
 
+    renderError = () => {
+        return (
+            <Grid containter textAlign='center'>
+                <Header as='h1' fluid centered>
+                    <Image src="https://cdn4.iconfinder.com/data/icons/emoticons-outline/512/21-512.png" />
+                    You Don't Follow Anyone
+                </Header>
+            </Grid>
+        )
+    }
+
     render(){
         return (
             <div id="gear">
-                <Header as='h2'inverted>Gear Feed</Header>
                 <br></br>
+                <br></br>
+                <br></br>
+                {this.state.posts.length < 1 ? this.renderError() : null}
                 <Grid centered container columns='equal'>
                     <Grid.Column width={8}>
                         <Card.Group>
-                            {this.state.posts.length > 0 ? this.renderCards() : null}
+                            {this.state.posts.length > 0 ? this.renderCards() : null }
                         </Card.Group>
                     </Grid.Column>
                 </Grid>

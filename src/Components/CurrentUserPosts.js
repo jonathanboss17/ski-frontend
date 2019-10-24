@@ -5,7 +5,7 @@ import { Grid, Image, Modal, Header, List } from 'semantic-ui-react';
 export default class UsersPosts extends React.Component {
 
     renderPosts = () => {
-        return this.props.user.posts.map(post => {
+        return this.props.current_posts.map(post => {
             return (
                 <Grid.Column padded>
                     <Modal dimmer='blurring' trigger={<Image src={post.img} />} basic>

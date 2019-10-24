@@ -30,7 +30,8 @@ export default class App extends React.Component {
       title: '', 
       description: ''
     }, 
-    search_resorts: []
+    search_resorts: [], 
+    current_posts: []
   }
 
   componentDidMount() {
@@ -45,7 +46,7 @@ export default class App extends React.Component {
       .then(data => {
         this.setState({ user: data[1] })
         this.setState({ resorts: data[0] })
-
+        this.setState({ current_posts: data[1].posts })
         this.state.resorts.forEach(resort => {
             this.setSearchedResorts(this.setSearchedResort(resort))
         })
@@ -86,6 +87,12 @@ export default class App extends React.Component {
     this.setState({ ski_area_id: value})
   }
 
+  // ---------
+
+  getCurrentPosts = (post) => {
+    this.setState({ current_posts: [...this.state.current_posts, post] })
+  }
+
   render() {
     return (
       <div className='App'>
@@ -94,12 +101,12 @@ export default class App extends React.Component {
         <Switch> 
           <Route exact path='/home' render={() => <Main getId={this.getSkiAreaId} resorts={this.state.search_resorts}/>} />
           <Route exact path='/login' component={AuthForm} />
-          <Route exact path='/profile' render={() => <Profile user={this.state.user}/>} />
-          <Route exact path='/gear' render={() => <Gear user={this.state.user} />} />
-          {/* <Route exact path='/resorts' render={() => <Resorts resorts={this.state.resorts} />} /> */}
+          <Route exact path='/profile' render={() => <Profile user={this.state.user} current_posts={this.state.current_posts}/>} />
+          <Route exact path='/feed' render={() => <Gear user={this.state.user} />} />
+          <Route exact path='/resorts' render={() => <Resorts resorts={this.state.resorts} />} />
           <Route exact path='/resort/show' render={() => <ResortShowPage ski_area_id={this.state.ski_area_id}/>} />
           <Route exact path='/signup' component={SignUpForm} />
-          <Route exact path='/post' render={() => <Post user={this.state.user} />} />
+          <Route exact path='/post' render={() => <Post user={this.state.user} getCurrentPosts={this.getCurrentPosts} />} />
           <Route exact path='/users' render={() => <Users getSearchedUserId={this.getSearchedUserId} />} />
           <Route exact path='/searchedusersshow' render={() => <SearchedUsersShowPage id={this.state.searched_user_id} /> } />
         </Switch>

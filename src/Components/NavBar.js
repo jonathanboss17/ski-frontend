@@ -23,6 +23,43 @@ class NavBar extends React.Component {
         return localStorage.length > 0 ? <Menu.Item name='logout' id='logout' onClick={this.handleLogOut} /> : <Menu.Item name='login' id='login' active={this.state.activeItem === 'login'} onClick={this.handleClick} />
     }
 
+    renderGearItem = () => {
+        if(localStorage.length > 0){
+            return (
+                    <Menu.Item name='feed' id='feed' active={this.state.activeItem === 'feed'} onClick={this.handleClick}/>
+            )
+        }
+    }
+
+    renderPostItem = () => {
+        if(localStorage.length > 0){
+            return (
+                <Menu.Item name="post" id="post" active={this.state.activeItem === 'post'} onClick={this.handleClick}/>        
+            )
+        }
+    }
+
+    renderUsersItem = () => {
+        if(localStorage.length > 0){
+            return (  
+                <Menu.Item name='users' id='users' active={this.state.activeItem === 'users'} onClick={this.handleClick} />     
+            )
+        }
+    }
+
+    renderProfileItem = () => {
+        if(localStorage.length > 0){
+            return (
+                <Menu.Item name='user' id='profile' active={this.state.activeItem === 'profile'} onClick={this.handleClick}>                
+                    <Icon name='user' />                        
+                </Menu.Item>
+            )
+        }
+    }
+
+    
+    
+
     render(){
         return (
             <Menu pointing secondary size="massive" 
@@ -35,16 +72,14 @@ class NavBar extends React.Component {
                 width: '100%'
             }}>
                 <Menu.Item name='home' id='home' active={this.state.activeItem === 'home'} onClick={this.handleClick}/>
-                <Menu.Item name='gear' id='gear' active={this.state.activeItem === 'gear'} onClick={this.handleClick}/>
+                
                 {/* <Menu.Item name='resorts' id='resorts' active={this.state.activeItem === 'resorts'} onClick={this.handleClick}/> */}
-                <Menu.Item name="post" id="post" active={this.state.activeItem === 'post'} onClick={this.handleClick}/>
-                <Menu.Item name='users' id='users' active={this.state.activeItem === 'users'} onClick={this.handleClick} />
-            
+                {this.renderGearItem()}
+                {this.renderPostItem()}
+                {this.renderUsersItem()}
     
                 <Menu.Menu position='right'>       
-                    <Menu.Item name='user' id='profile' active={this.state.activeItem === 'profile'} onClick={this.handleClick}>                
-                        <Icon name='user' />                        
-                    </Menu.Item>
+                    {this.renderProfileItem()}
                     {this.renderLogButton()}
                 </Menu.Menu>
             </Menu>

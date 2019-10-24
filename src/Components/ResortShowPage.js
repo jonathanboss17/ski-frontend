@@ -82,7 +82,7 @@ export default class ResortShowPage extends React.Component {
                                         <List.Item>Night Skiing: {this.state.night_skiing}</List.Item>
                                         <List.Item>Highest Elevation: {this.state.top_el} meters</List.Item>
                                         <List.Item>Base: {this.state.base_el} meters</List.Item>
-                                        <List.Item><a href={this.state.website} target='_blank'>website</a></List.Item>
+                                        <List.Item><a href={this.state.website} target='_blank'>More Information</a></List.Item>
                                     </List>
                                     {/* <Modal size='large' trigger={<Button>Larger Map</Button>}>
                                         <Image  size='massive' src={this.state.modal_img}/>
