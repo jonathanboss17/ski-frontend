@@ -4,7 +4,9 @@ import { Menu } from 'semantic-ui-react';
 
 const UserPostsMenu = () => {
         return (
-            <Menu pointing secondary />   
+            <Menu pointing secondary>
+                <Menu.Item name='posts' active={'posts'} />
+            </Menu>   
         )
 }
 

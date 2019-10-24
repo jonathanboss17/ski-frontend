@@ -33,7 +33,7 @@ class Post extends React.Component {
 
         fetch('http://localhost:3000/posts', reqObj)
         .then(() => {
-            this.props.history.push('/profile')
+            this.props.history.push('/gear')
         })
     }
 
@@ -41,10 +41,7 @@ class Post extends React.Component {
     render() {
 
         const header  = (
-            <a>
-                <Icon size='large' color='black' name='heart outline' />
-                <Icon size='large' color='black' name="comment outline" />
-            </a>
+            <Icon size='large' name='like' />
         )
 
         const description = (
@@ -68,6 +65,7 @@ class Post extends React.Component {
         return (
                 <Grid centered container>
                     <Grid.Column style={{ maxWidth: 450 }}>
+                        <br></br>
                         <Segment>
                             <Header textAlign='center' as="h2">Create A Post!</Header>
                         </Segment>
@@ -78,6 +76,7 @@ class Post extends React.Component {
                                 image={<PostImageUploader getPostImg={this.getPostImg} />}
                                 header={header}
                                 description={description}
+                                meta='0 likes'
                                 extra='Comments'
                             />
                             <Form.Button size='large' color="blue">Create</Form.Button>

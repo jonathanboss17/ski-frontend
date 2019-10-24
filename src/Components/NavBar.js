@@ -1,9 +1,8 @@
 import React from 'react'; 
-import { Menu, Icon, Sticky } from 'semantic-ui-react'; 
+import { Menu, Icon } from 'semantic-ui-react'; 
 import { withRouter } from 'react-router-dom'; 
 
 class NavBar extends React.Component {
-    // need to make this bigger
 
     state = { 
         path: null, 
@@ -25,25 +24,30 @@ class NavBar extends React.Component {
     }
 
     render(){
-        // Sticky not working ... need to edit
         return (
-            <Sticky className='NavBar'>
-                <Menu pointing secondary size="massive">
-                    <Menu.Item name='home' id='home' active={this.state.activeItem === 'home'} onClick={this.handleClick}/>
-                    <Menu.Item name='gear' id='gear' active={this.state.activeItem === 'gear'} onClick={this.handleClick}/>
-                    <Menu.Item name='resorts' id='resorts' active={this.state.activeItem === 'resorts'} onClick={this.handleClick}/>
-                    <Menu.Item name="post" id="post" active={this.state.activeItem === 'post'} onClick={this.handleClick}/>
-                    <Menu.Item name='users' id='users' active={this.state.activeItem === 'users'} onClick={this.handleClick} />
-                   
-           
-                    <Menu.Menu position='right'>       
-                        <Menu.Item name='user' id='profile' active={this.state.activeItem === 'profile'} onClick={this.handleClick}>                
-                            <Icon name='user' />                        
-                        </Menu.Item>
-                         {this.renderLogButton()}
-                    </Menu.Menu>
-                </Menu>
-            </Sticky>
+            <Menu pointing secondary size="massive" 
+            style={{ 
+                overflow: 'hidden',
+                backgroundColor: 'white',
+                zIndex: 1, 
+                position: 'fixed', 
+                top: 0, 
+                width: '100%'
+            }}>
+                <Menu.Item name='home' id='home' active={this.state.activeItem === 'home'} onClick={this.handleClick}/>
+                <Menu.Item name='gear' id='gear' active={this.state.activeItem === 'gear'} onClick={this.handleClick}/>
+                {/* <Menu.Item name='resorts' id='resorts' active={this.state.activeItem === 'resorts'} onClick={this.handleClick}/> */}
+                <Menu.Item name="post" id="post" active={this.state.activeItem === 'post'} onClick={this.handleClick}/>
+                <Menu.Item name='users' id='users' active={this.state.activeItem === 'users'} onClick={this.handleClick} />
+            
+    
+                <Menu.Menu position='right'>       
+                    <Menu.Item name='user' id='profile' active={this.state.activeItem === 'profile'} onClick={this.handleClick}>                
+                        <Icon name='user' />                        
+                    </Menu.Item>
+                    {this.renderLogButton()}
+                </Menu.Menu>
+            </Menu>
         )
     }
 }

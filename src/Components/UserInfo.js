@@ -10,6 +10,7 @@ import DeleteProfile from './DeleteProfile';
 class UserInfo extends React.Component {
 
     state = {
+        user: this.props.user, 
         follow: 'Follow', 
         color: 'blue', 
         follow_id: null, 
@@ -57,7 +58,7 @@ class UserInfo extends React.Component {
 
     renderEditButton = () => {
         let x = parseInt(localStorage.getItem('user_id'))
-        return this.props.user.id === x ? <EditProfile user={this.props.user} /> : <Button id={this.props.user.id} color={this.state.color} size='tiny' onClick={ this.state.follow === 'Follow' ? this.handleFollowClick : this.handleUnfollowClick }>{this.state.follow}</Button>
+        return this.props.user.id === x ? <EditProfile updateUser={this.updateUser} user={this.props.user} /> : <Button id={this.props.user.id} color={this.state.color} size='tiny' onClick={ this.state.follow === 'Follow' ? this.handleFollowClick : this.handleUnfollowClick }>{this.state.follow}</Button>
     }
 
     renderDeleteButton = () => {
@@ -65,11 +66,15 @@ class UserInfo extends React.Component {
         return this.props.user.id === x ? <DeleteProfile /> : null
     }
 
+    updateUser = (data) => {
+        this.setState({ user: data})
+    }
+
     render() {
         return ( 
             <List horizontal>
                 <List.Item>
-                    <Image src={this.props.user.avatar} size='small' verticalAlign='bottom' rounded/>
+                    <Image src={this.state.user.avatar} size='small' verticalAlign='bottom' rounded/>
                 </List.Item>
                 
                 <List.Item>
@@ -77,7 +82,7 @@ class UserInfo extends React.Component {
                         <List.Item>
                             <List horizontal size='massive'>
                                 <List.Item>
-                                    {this.props.user.username}
+                                    {this.state.user.username}
                                 </List.Item>
                                 <List.Item>
                                     {this.renderEditButton()}
@@ -91,7 +96,7 @@ class UserInfo extends React.Component {
                         <List.Item>
                             <List horizontal size='big'>
                                 <List.Item>
-                                    {this.props.user.posts.length} posts
+                                    {this.state.user.posts.length} posts
                                 </List.Item>
                                 <List.Item>
                                     {this.state.followers} followers
@@ -105,7 +110,7 @@ class UserInfo extends React.Component {
                         <List.Item>
                             <List horizontal size='large'>
                                 <List.Item>
-                                    <List.Header>{this.props.user.bio}</List.Header>
+                                    <List.Header>{this.state.user.bio}</List.Header>
                                 </List.Item>
                             </List>
                         </List.Item>

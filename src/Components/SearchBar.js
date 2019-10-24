@@ -41,13 +41,13 @@ class SearchBar extends React.Component {
 
     render() { 
         return (
-            <Grid textAlign='center' style={{ height: '75vh' }} verticalAlign='middle' >
-                <Grid.Column style={{ maxWidth: 575}}>
+            <Grid textAlign='center' style={{ height: '65vh' }} verticalAlign='middle' >
+                <Grid.Column style={{ maxWidth: 600}}>
                     <Form onSubmit={this.handleSearchSubmit}>
-                        <Header as='h1'>
+                        <Header as='h2'>
                             <Search
                                 fluid
-                                size='huge'
+                                size='large'
                                 placeholder='Search Your Resort'
                                 loading={this.state.isLoading}
                                 onResultSelect={this.handleResultSelect}

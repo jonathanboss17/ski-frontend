@@ -1,12 +1,15 @@
 import React from 'react'; 
 
-import { List, Header } from 'semantic-ui-react'; 
+import { List, Header, Image } from 'semantic-ui-react'; 
 
 const GearCardDescription = (props) => {
     return (
         <List horizontal>
             <List.Item>
-                <Header as='h5'>{props.username}</Header>
+                <Image src={props.avatar} avatar/>
+            </List.Item>
+            <List.Item>
+                <Header as='h3'>{props.username}</Header>
             </List.Item>
             <List.Item>
                 {props.caption}

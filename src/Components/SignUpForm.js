@@ -42,7 +42,7 @@ class SignUpForm extends React.Component {
         .then(response => response.json())
         .then(user => {
             localStorage.setItem('user_id', user.id)
-            this.props.history.push('/')
+            this.props.history.push('/home')
         })
     }
 

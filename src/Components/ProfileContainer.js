@@ -9,6 +9,7 @@ import { Container, Grid, Segment } from 'semantic-ui-react';
 const ProfileContainer = (props) => {
     return (
         <Container>
+            <br></br>
             <Segment> 
                 <Grid container centered columns={1}>
                     <Grid.Column textAlign='center' width={12}>

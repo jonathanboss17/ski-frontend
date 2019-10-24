@@ -96,7 +96,7 @@ export default class App extends React.Component {
           <Route exact path='/login' component={AuthForm} />
           <Route exact path='/profile' render={() => <Profile user={this.state.user}/>} />
           <Route exact path='/gear' render={() => <Gear user={this.state.user} />} />
-          <Route exact path='/resorts' render={() => <Resorts resorts={this.state.resorts} />} />
+          {/* <Route exact path='/resorts' render={() => <Resorts resorts={this.state.resorts} />} /> */}
           <Route exact path='/resort/show' render={() => <ResortShowPage ski_area_id={this.state.ski_area_id}/>} />
           <Route exact path='/signup' component={SignUpForm} />
           <Route exact path='/post' render={() => <Post user={this.state.user} />} />

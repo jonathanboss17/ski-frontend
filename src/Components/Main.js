@@ -5,7 +5,9 @@ export default class Main extends React.Component {
 
     render(){
         return (
-            <SearchBar getId={this.props.getId} resorts={this.props.resorts} />
+            <div id='main'>
+                <SearchBar getId={this.props.getId} resorts={this.props.resorts} />
+            </div>
         )
     }
 }

@@ -6,8 +6,8 @@ class CommentForm extends React.Component {
     
     render() {
         return (
-            <Form onSubmit={this.props.handleSubmit}>
-                <Form.Input placeholder='Add a comment...' onChange={this.props.handleChange}/>
+            <Form onSubmit={(e) => this.props.handleSubmit(e)}>
+                <Form.Input transparent placeholder='Add a comment...' value={this.props.comment} style={{ height: '4vh' }} onChange={this.props.handleChange}/>
             </Form>
         )
     }

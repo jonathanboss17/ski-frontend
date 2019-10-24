@@ -1,12 +1,13 @@
 .App {
   text-align: center;
+  margin-top: 20px; 
 }
 
-/* .NavBar {
-  background-color: black; 
+/* #main {
+  background-image: url("../IMG/IMG_2905.png");
   background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-position: center;
+  background-attachment: fixed;
+  background-position: bottom;
   background-size: 100% 100%;
 } */
 

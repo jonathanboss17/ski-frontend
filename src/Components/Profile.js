@@ -3,7 +3,9 @@ import ProfileContainer from './ProfileContainer';
 
 const Profile = (props) => {
     return (
-        <ProfileContainer user={props.user} />
+        <div>
+            <ProfileContainer user={props.user} />
+        </div>
     )
 }
 

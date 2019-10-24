@@ -1,6 +1,11 @@
 import React from 'react'; 
-
+// import { Document, Page, pdfjs } from 'react-pdf';
 import { Segment, Image, Grid, Header, List, Modal, Button } from 'semantic-ui-react';
+// pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+
+import { Link } from 'react-router-dom'; 
+
+
 
 // need Redux
 export default class ResortShowPage extends React.Component {
@@ -33,6 +38,7 @@ export default class ResortShowPage extends React.Component {
             this.setState({ night_skiing: data.night_skiing})
             this.setState({ top_el: data.top_elevation})
             this.setState({ base_el: data.bottom_elevation})
+            this.setState({ website: data.official_website })
             this.getMap()
         })
     }
@@ -76,10 +82,14 @@ export default class ResortShowPage extends React.Component {
                                         <List.Item>Night Skiing: {this.state.night_skiing}</List.Item>
                                         <List.Item>Highest Elevation: {this.state.top_el} meters</List.Item>
                                         <List.Item>Base: {this.state.base_el} meters</List.Item>
+                                        <List.Item><a href={this.state.website} target='_blank'>website</a></List.Item>
                                     </List>
-                                    <Modal trigger={<Button>Larger Map</Button>}>
-                                        <Image wrapped size='massive' src={this.state.modal_img}/>
-                                    </Modal>
+                                    {/* <Modal size='large' trigger={<Button>Larger Map</Button>}>
+                                        <Image  size='massive' src={this.state.modal_img}/>
+                                        <Document file={this.state.modal_img} >
+                                            <Page pageNumber={1}/>
+                                        </Document>
+                                    </Modal> */}
                                     {/* modal needs to be fixed */}
                                 </Segment>
                         </Segment.Group>

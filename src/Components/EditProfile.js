@@ -2,9 +2,11 @@ import React from 'react';
 
 import ImageUploader from './UserImageUploader'; 
 
-import { Button, Modal, Form, Segment } from 'semantic-ui-react'
+import { Button, Modal, Form, Segment } from 'semantic-ui-react'; 
 
-export default class EditProfile extends React.Component {
+import { withRouter } from 'react-router-dom'; 
+
+class EditProfile extends React.Component {
 
     state = {
         username: this.props.user.username, 
@@ -41,12 +43,14 @@ export default class EditProfile extends React.Component {
 
         fetch(`http://localhost:3000/users/${localStorage.getItem('user_id')}`, reqObj)
         .then(response => response.json())
-        .then(console.log)
+        .then(data => {
+            this.props.updateUser(data)
+        })
     }
 
     render() {
         return (
-            <Modal trigger={<Button basic color='black' size='tiny'>Edit Profile</Button>}>
+            <Modal trigger={<Button basic color='black' size='tiny'>Edit Profile</Button>} closeIcon>
                 <Segment>
                     <Form onSubmit={(e) => this.handleSubmit(e)}>
                                 <Form.Input width={6} label='Username' name='username' value={this.state.username} placeholder='jboss17' onChange={this.handleChange}/>
@@ -62,3 +66,5 @@ export default class EditProfile extends React.Component {
         )
     }
 }
+
+export default withRouter(EditProfile)

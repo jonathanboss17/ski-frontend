@@ -1,28 +1,37 @@
 import React from 'react'; 
-import { Image, Transformation } from 'cloudinary-react'; 
-import { Modal, Header } from 'semantic-ui-react'; 
+import { Image } from 'cloudinary-react'; 
+import { Modal, Header, List } from 'semantic-ui-react'; 
+
 
 const GearCardModal = (props) => {
+    console.log(props)
     return (
         <Modal trigger={
-
-        <Image publicId={props.img}>
-            <Transformation height='250' width='250' gravity='faces' crop='fill' />
-        </Image>
-        
-        } size='fullscreen'>
-            <Modal.Header>Select a Photo</Modal.Header>
-            <Modal.Content image>
-                <Image wrapped size='massive' src={props.img} />
-                <Modal.Description>
-                    <Header>Default Profile Image</Header>
-                    <p>
-                    We've found the following gravatar image associated with your e-mail
-                    address.
-                    </p>
-                    <p>Is it okay to use this photo?</p>
-                </Modal.Description>
-            </Modal.Content>
+            <Image 
+                cloudName='jboss17' 
+                publicId={props.post.img}
+                height='500'
+                gravity='faces'
+                crop='fill'
+            />} 
+        dimmer='blurring' basic>
+                <Image cloudName='jboss17' publicId={props.post.img} size='massive' src={props.post.img} />
+                <Modal.Content>
+                            <List horizontal>
+                                <List.Item>
+                                    <Image src={props.post.user.avatar} avatar/>{props.post.user.username}
+                                </List.Item>
+                                <List.Item>
+                                    <Header inverted as='h4'>{props.post.caption}</Header>
+                                </List.Item>
+                                <List.Item>
+                                    {props.post.likes.length} likes
+                                </List.Item>
+                                <List.Item>
+                                    {props.post.comments.length} comments
+                                </List.Item>
+                            </List>                   
+                </Modal.Content>
         </Modal>
     )
 }

@@ -74,7 +74,7 @@ class Users extends React.Component {
 
     render() {        
         return (
-            <Grid textAlign='center' style={{ height: '20vh' }} verticalAlign='middle' >
+            <Grid textAlign='center' style={{ height: '15vh' }} verticalAlign='middle' >
                 <Grid.Column style={{ maxWidth: 450 }}>
                 <Header inverted as='h2'>Search Users</Header>
                     <Form onSubmit={this.handleSubmit}>
