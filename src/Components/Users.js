@@ -3,9 +3,9 @@ import _ from 'lodash';
 
 import { Header, Grid, Search, Form } from 'semantic-ui-react'; 
 
-import { Redirect } from 'react-router-dom'; 
+import { withRouter } from 'react-router-dom'; 
 
-export default class Users extends React.Component {
+class Users extends React.Component {
 
     state = {
         users: [],
@@ -34,6 +34,7 @@ export default class Users extends React.Component {
         this.setState({
             user: {
                 ...this.state.user,
+                key: user.id,
                 title: user.username,
                 description: user.bio, 
                 image: { avatar: true, src: user.avatar }
@@ -49,8 +50,8 @@ export default class Users extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault(); 
-        localStorage.setItem('searched_user', this.state.value)
-        this.setState({ redirect: true })
+        this.props.getSearchedUserId(this.state.results[0].key)
+        this.props.history.push('/searchedusersshow')
     }
 
     handleResultSelect = (e, { result }) => this.setState({ value: result.title })
@@ -71,13 +72,7 @@ export default class Users extends React.Component {
       }, 300)
     }
 
-    render() {
-
-        if(this.state.redirect){
-            this.setState({ redirect: false})
-            return <Redirect to='/searchedusersshow' />
-        }
-        
+    render() {        
         return (
             <Grid textAlign='center' style={{ height: '20vh' }} verticalAlign='middle' >
                 <Grid.Column style={{ maxWidth: 450 }}>
@@ -102,3 +97,5 @@ export default class Users extends React.Component {
         )
     }
 }
+
+export default withRouter(Users)

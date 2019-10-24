@@ -1,14 +1,13 @@
 import React from 'react'; 
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'; 
 
-import { Link, Redirect } from 'react-router-dom'; 
+import { Link, Redirect, withRouter } from 'react-router-dom'; 
 
-export default class AuthForm extends React.Component {
+class AuthForm extends React.Component {
 
     state = {
         username: '', 
-        password: '', 
-        redirect: false
+        password: ''
     }
 
     handleSubmit = (e) => {
@@ -26,15 +25,8 @@ export default class AuthForm extends React.Component {
         .then(data => {
             localStorage.setItem('user_id', data.user.id)
             localStorage.setItem("jwt", data.jwt)
-            this.setState({ redirect: true })
+            this.props.history.push('/home')
         })
-      }
-
-      handleRedirect = () => {
-        if(this.state.redirect){
-            this.setState({redirect: false})
-            return <Redirect to='/' />
-        }
       }
     
       handleChange = (e) => {
@@ -44,7 +36,6 @@ export default class AuthForm extends React.Component {
       }
 
     render() {
-
         return (
             <Grid textAlign='center' style={{ height: '85vh' }} verticalAlign='middle' >
                 <Grid.Column style={{ maxWidth: 450 }}>
@@ -63,8 +54,9 @@ export default class AuthForm extends React.Component {
                     </Message>
 
                 </Grid.Column>
-                {this.handleRedirect()}
             </Grid>
         )
     }
 }
+
+export default withRouter(AuthForm)

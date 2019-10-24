@@ -16,16 +16,15 @@ export default class UsersPosts extends React.Component {
                                     <Image src={this.props.user.avatar} avatar/>{this.props.user.username}
                                 </List.Item>
                                 <List.Item>
-                                    <Header inverted as='h3'>{post.caption}</Header>
+                                    <Header inverted as='h4'>{post.caption}</Header>
                                 </List.Item>
                                 <List.Item>
-                                    5 Likes
+                                    {post.likes.length} likes
                                 </List.Item>
                                 <List.Item>
-                                    2 Comments
+                                    {post.comments.length} comments
                                 </List.Item>
-                            </List>
-                            
+                            </List>                   
                         </Modal.Content>
                     </Modal>
                 </Grid.Column>
@@ -35,10 +34,8 @@ export default class UsersPosts extends React.Component {
 
     render() {
         return (
-            <Grid container relaxed='very' centered columns={3} celled>
-                <Grid.Row>
-                    {this.renderPosts()}       
-                </Grid.Row>
+            <Grid container relaxed='very' centered columns={3}>
+                {this.renderPosts()}       
             </Grid>
         )
     }

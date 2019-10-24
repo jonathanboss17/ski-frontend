@@ -25,7 +25,7 @@ export default class App extends React.Component {
     input: null,
     ski_area_id: null,
     user: null, 
-    searched_user: null, 
+    searched_user_id: null, 
     search_resort: {
       title: '', 
       description: ''
@@ -70,8 +70,8 @@ export default class App extends React.Component {
       this.setState({ search_resorts: [...this.state.search_resorts, resort] })
   }
 
-  setSearchedUser = (username) => {
-    this.setState({ searched_user: username})
+  getSearchedUserId = (id) => {
+    this.setState({ searched_user_id: id})
   }
 
   //  ----- LOG OUT USER -------
@@ -90,6 +90,7 @@ export default class App extends React.Component {
     return (
       <div className='App'>
         <NavBar />
+        <br></br>
         <Switch> 
           <Route exact path='/home' render={() => <Main getId={this.getSkiAreaId} resorts={this.state.search_resorts}/>} />
           <Route exact path='/login' component={AuthForm} />
@@ -98,9 +99,9 @@ export default class App extends React.Component {
           <Route exact path='/resorts' render={() => <Resorts resorts={this.state.resorts} />} />
           <Route exact path='/resort/show' render={() => <ResortShowPage ski_area_id={this.state.ski_area_id}/>} />
           <Route exact path='/signup' component={SignUpForm} />
-          <Route exact path='/post' component={Post} />
-          <Route exact path='/users' render={() => <Users setSearchedUser={this.setSearchedUser} />} />
-          <Route exact path='/searchedusersshow' component={SearchedUsersShowPage}/>
+          <Route exact path='/post' render={() => <Post user={this.state.user} />} />
+          <Route exact path='/users' render={() => <Users getSearchedUserId={this.getSearchedUserId} />} />
+          <Route exact path='/searchedusersshow' render={() => <SearchedUsersShowPage id={this.state.searched_user_id} /> } />
         </Switch>
       </div>
     )

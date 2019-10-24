@@ -2,9 +2,11 @@ import React from 'react';
 
 import PostImageUploader from './PostImageUploader'; 
 
-import { Header, Form, Grid, Segment } from 'semantic-ui-react'; 
+import { Header, Form, Grid, Segment, Card, Image, List, Icon, Input } from 'semantic-ui-react'; 
 
-export default class Post extends React.Component {
+import { withRouter } from 'react-router-dom'; 
+
+class Post extends React.Component {
 
     state = {
         caption: '', 
@@ -16,7 +18,7 @@ export default class Post extends React.Component {
     }
 
     handleChange = (e) => {
-        this.setState({ [e.target.name]: e.target.value })
+        this.setState({ caption: e.target.value })
     }
 
     handleSubmit = (e) => {
@@ -30,26 +32,61 @@ export default class Post extends React.Component {
         }
 
         fetch('http://localhost:3000/posts', reqObj)
+        .then(() => {
+            this.props.history.push('/profile')
+        })
     }
+
     
     render() {
+
+        const header  = (
+            <a>
+                <Icon size='large' color='black' name='heart outline' />
+                <Icon size='large' color='black' name="comment outline" />
+            </a>
+        )
+
+        const description = (
+            <List>
+                <List.Item>
+                    <List horizontal>
+                        <List.Item>
+                            <Image src={this.props.user.avatar} avatar />
+                        </List.Item>
+                        <List.Item>
+                            <Header as='h5'>{this.props.user.username}</Header>
+                        </List.Item>
+                        <List.Item>
+                            <Input style={{ height: '4vh'}} placeholder='caption' onChange={this.handleChange}/> 
+                        </List.Item>
+                    </List>
+                </List.Item>
+            </List>
+        )
+
         return (
-            <div>
-                <Grid textAlign='center' style={{ height: '50vh' }} verticalAlign='middle'>
+                <Grid centered container>
                     <Grid.Column style={{ maxWidth: 450 }}>
                         <Segment>
-                        <Header as="h2">Create A Post!</Header>
-                            <Form onSubmit={this.handleSubmit}>
-                                <PostImageUploader getPostImg={this.getPostImg}/>
-                                <br></br>
-                                <br></br>
-                                <Form.Input placeholder='caption' name='caption' value={this.state.caption} onChange={this.handleChange}/>
-                                <Form.Button color="blue">Create</Form.Button>
-                            </Form>
+                            <Header textAlign='center' as="h2">Create A Post!</Header>
                         </Segment>
+                        
+                        <Form onSubmit={this.handleSubmit}>
+                            <Card 
+                                fluid
+                                image={<PostImageUploader getPostImg={this.getPostImg} />}
+                                header={header}
+                                description={description}
+                                extra='Comments'
+                            />
+                            <Form.Button size='large' color="blue">Create</Form.Button>
+                        </Form>
+                     
                     </Grid.Column>
                 </Grid>
-            </div>
         )
     }
 }
+
+export default withRouter(Post)

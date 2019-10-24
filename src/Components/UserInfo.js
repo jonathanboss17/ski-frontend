@@ -11,14 +11,24 @@ class UserInfo extends React.Component {
 
     state = {
         follow: 'Follow', 
-        color: 'blue'
+        color: 'blue', 
+        follow_id: null, 
+        followers: this.props.user.followers.length, 
+        following: this.props.user.following.length
+    }
+
+    componentDidMount() {
+        let x = this.props.user.followers.filter(x => x.id === parseInt(localStorage.getItem('user_id')))
+        x.length > 0 ? this.setState({ follow: 'Unfollow', color: 'gray'}) : this.setState({ follow: 'Follow', color: 'blue' })
     }
 
     handleFollowClick = () => {
-        this.setState({ follow: 'Following', color: 'gray'})
+        let x = this.props.user.followers.length
+
+        this.setState({ follow: 'Unfollow', color: 'gray', followers: x + 1 })
 
         const reqObj = {
-            method: 'POST', 
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             }, 
@@ -26,12 +36,28 @@ class UserInfo extends React.Component {
         }
 
         fetch('http://localhost:3000/follows', reqObj)
+        .then(response => response.json())
+        .then(data => {
+            this.setState({ follow_id: data.id })
+        })
         
+    }
+
+    handleUnfollowClick = () => {
+
+        let x = this.props.user.followers.length
+        this.setState({ follow: 'Follow', color: 'blue', followers: x - 1})
+
+        const reqObj = {
+            method: 'DELETE'
+        }
+
+        fetch(`http://localhost:3000/follows/${this.state.follow_id}`, reqObj)
     }
 
     renderEditButton = () => {
         let x = parseInt(localStorage.getItem('user_id'))
-        return this.props.user.id === x ? <EditProfile user={this.props.user} /> : <Button id={this.props.user.id} color={this.state.color} size='tiny' onClick={this.handleFollowClick}>{this.state.follow}</Button>
+        return this.props.user.id === x ? <EditProfile user={this.props.user} /> : <Button id={this.props.user.id} color={this.state.color} size='tiny' onClick={ this.state.follow === 'Follow' ? this.handleFollowClick : this.handleUnfollowClick }>{this.state.follow}</Button>
     }
 
     renderDeleteButton = () => {
@@ -68,10 +94,10 @@ class UserInfo extends React.Component {
                                     {this.props.user.posts.length} posts
                                 </List.Item>
                                 <List.Item>
-                                    {this.props.user.followers.length} followers
+                                    {this.state.followers} followers
                                 </List.Item>
                                 <List.Item>
-                                    {this.props.user.following.length} following
+                                    {this.state.following} following
                                 </List.Item>
                             </List>
                         </List.Item>

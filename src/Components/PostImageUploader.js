@@ -1,6 +1,6 @@
 import React from 'react'; 
 
-import { Button } from 'semantic-ui-react'; 
+import { Button, Image } from 'semantic-ui-react'; 
 
 export default class PostImageUploader extends React.Component {
     checkUploadResult = (result, widget) => {
@@ -23,7 +23,7 @@ export default class PostImageUploader extends React.Component {
         }, (error, result) => { this.checkUploadResult(result, widget) })
 
         return (
-            <Button onClick={() => this.showWidget(widget)}>Upload Photo</Button>
+            <Image src='https://aliceasmartialarts.com/wp-content/uploads/2017/04/default-image.jpg' onClick={() => this.showWidget(widget)} />
         )
     }
 }

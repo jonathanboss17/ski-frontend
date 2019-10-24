@@ -12,15 +12,16 @@ class NavBar extends React.Component {
     
     handleClick = (e) => {
         this.setState({ activeItem: e.target.id})  
-        if(e.target.id === 'logout'){
-            localStorage.clear()
-            this.props.history.push('/login')
-        }
         this.props.history.push(`/${e.target.id}`)
     }
 
+    handleLogOut = () => {
+        localStorage.clear()
+        this.props.history.push('/home')
+    }
+
     renderLogButton = () => {
-        return localStorage.length > 0 ? <Menu.Item name='logout' id='logout' onClick={this.handleClick} /> : <Menu.Item name='login' id='login' onClick={this.handleClick} />
+        return localStorage.length > 0 ? <Menu.Item name='logout' id='logout' onClick={this.handleLogOut} /> : <Menu.Item name='login' id='login' active={this.state.activeItem === 'login'} onClick={this.handleClick} />
     }
 
     render(){

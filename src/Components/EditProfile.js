@@ -2,7 +2,7 @@ import React from 'react';
 
 import ImageUploader from './UserImageUploader'; 
 
-import { Button, Modal, Form } from 'semantic-ui-react'
+import { Button, Modal, Form, Segment } from 'semantic-ui-react'
 
 export default class EditProfile extends React.Component {
 
@@ -47,15 +47,17 @@ export default class EditProfile extends React.Component {
     render() {
         return (
             <Modal trigger={<Button basic color='black' size='tiny'>Edit Profile</Button>}>
-                <Form onSubmit={(e) => this.handleSubmit(e)}>
-                            <Form.Input width={6} label='Username' name='username' value={this.state.username} placeholder='jboss17' onChange={this.handleChange}/>
-                            <ImageUploader getAvatar={this.getAvatar} />
-                       
-                            <Form.Input width={7} label='Password' name='password' value={this.state.password} placeholder='skierboi5000' onChange={this.handleChange}/>
-                            
-                            <Form.TextArea label='Bio' name='bio' value={this.state.bio} placeholder='Tell us more about you...' onChange={this.handleChange}/>
-                            <Form.Button color='blue'>Update</Form.Button>
-                </Form>
+                <Segment>
+                    <Form onSubmit={(e) => this.handleSubmit(e)}>
+                                <Form.Input width={6} label='Username' name='username' value={this.state.username} placeholder='jboss17' onChange={this.handleChange}/>
+                                <ImageUploader getAvatar={this.getAvatar} />
+                                <br></br>
+                                <Form.Input width={6} label='Password' name='password' value={this.state.password} placeholder='skierboi5000' onChange={this.handleChange}/>
+                                
+                                <Form.TextArea label='Bio' name='bio' value={this.state.bio} placeholder='Tell us more about you...' onChange={this.handleChange}/>
+                                <Form.Button color='blue'>Update</Form.Button>
+                    </Form>
+                </Segment>
             </Modal>
         )
     }
