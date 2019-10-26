@@ -7,18 +7,18 @@
   -moz-osx-font-smoothing: grayscale;
 } */
 
-body {
+/* body { */
   /* margin: 0;
   padding: 0; */
 
   /** background image */
   /* background-image: url("./IMG/IMG_2905.png"); */
-  background-color: white; 
+  /* background-color: white; 
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: bottom;
-  background-size: 100% 100%;
-}
+  background-size: 100% 100%; */
+/* } */
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",

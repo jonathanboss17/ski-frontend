@@ -2,11 +2,6 @@ import React from 'react';
 
 import { List, Button, Image } from 'semantic-ui-react'; 
 
-// import { Image, Transformation } from 'cloudinary-react'; 
-
-// import EditProfile from './EditProfile'; 
-// import DeleteProfile from './DeleteProfile'; 
-
 class UserInfo extends React.Component {
 
     state = {
@@ -22,13 +17,6 @@ class UserInfo extends React.Component {
         let x = this.state.user.followers.filter(x => x.id === parseInt(localStorage.getItem('user_id')))
         x.length > 0 ? this.setState({ follow: 'Unfollow', color: 'gray'}) : this.setState({ follow: 'Follow', color: 'blue' })
     }
-
-    // componentDidUpdate = (prevProps, prevState) => {
-    //     if(prevState.follow_clicked !== this.state.follow_clicked){
-    //         const x = this.state.following
-    //         this.setState({ following: x + 1 })
-    //     }
-    // }
 
     handleFollowClick = () => {
         const x = this.state.followers
@@ -61,20 +49,6 @@ class UserInfo extends React.Component {
 
         fetch(`http://localhost:3000/follows/${this.state.follow_id}`, reqObj)
     }
-
-    // renderEditButton = () => {
-    //     let x = parseInt(localStorage.getItem('user_id'))
-    //     return this.props.user.id === x ? <EditProfile updateUser={this.updateUser} user={this.state.user} /> : <Button id={this.state.user.id} color={this.state.color} size='tiny' onClick={ this.state.follow === 'Follow' ? this.handleFollowClick : this.handleUnfollowClick }>{this.state.follow}</Button>
-    // }
-
-    // renderDeleteButton = () => {
-    //     let x = parseInt(localStorage.getItem('user_id'))
-    //     return this.props.user.id === x ? <DeleteProfile /> : null
-    // }
-
-    // updateUser = (data) => {
-    //     this.setState({ user: data})
-    // }
 
     render() {
         return ( 

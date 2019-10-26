@@ -48,11 +48,11 @@ class SignUpForm extends React.Component {
 
     render() {
         return (
-            <Grid textAlign='center' style={{ height: '85vh' }} verticalAlign='middle' >
+            <Grid  textAlign='center' style={{ height: '85vh' }} verticalAlign='middle' >
                 <Grid.Column style={{ maxWidth: 600 }}>
                     <Segment>
                         <Segment>
-                            <Header as='h2' color='black' textAlign='center'>Sign Up</Header>
+                            <Header as='h2' color='black'>Sign Up</Header>
                         </Segment>
                         <br></br>
                         <UserImageUploader getAvatar={this.getAvatar} />

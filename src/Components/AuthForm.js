@@ -1,7 +1,9 @@
 import React from 'react'; 
-import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'; 
+// import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'; 
+import { Grid, Header, Segment, Message, Icon, Input } from 'semantic-ui-react'; 
+import { Form, Button, InputGroup } from 'react-bootstrap'; 
 
-import { Link, Redirect, withRouter } from 'react-router-dom'; 
+import { Link, withRouter } from 'react-router-dom'; 
 
 class AuthForm extends React.Component {
 
@@ -37,22 +39,44 @@ class AuthForm extends React.Component {
 
     render() {
         return (
-            <Grid textAlign='center' style={{ height: '85vh' }} verticalAlign='middle' >
+            <Grid centered container style={{ height: '85vh' }} verticalAlign='middle' >
                 <Grid.Column style={{ maxWidth: 450 }}>
-                    <Header as='h2' inverted textAlign='center'>Log-in to your account</Header>
-                    <Form size='large' onSubmit={this.handleSubmit}>
+                    <Header as='h2' textAlign='center'>Log-in to your account</Header>
+
+                    <Form onSubmit={this.handleSubmit}>
                         <Segment stacked>
-                            <Form.Input fluid icon='user' iconPosition='left' placeholder="username" name='username' value={this.state.username} onChange={this.handleChange} />
-                            <Form.Input fluid icon='lock' iconPosition='left' type='password' placeholder="password" name='password' value={this.state.password} onChange={this.handleChange}/>
-                            <Button color='blue' fluid size='large'>Login</Button>
-                        
+
+                            <Form.Group>
+                                <Form.Label>Username</Form.Label>
+                                <InputGroup>
+                                    <InputGroup.Prepend> 
+                                        <InputGroup.Text>
+                                            <Icon name='user' size='large' fitted/>
+                                        </InputGroup.Text>
+                                    </InputGroup.Prepend>
+                                    <Form.Control size='lg' name='username' type='text' placeholder='username' value={this.state.username} onChange={this.handleChange} />
+                                </InputGroup>
+                            </Form.Group>
+
+                            <Form.Group>
+                                <Form.Label>Password</Form.Label>
+                                <InputGroup>
+                                    <InputGroup.Prepend>
+                                        <InputGroup.Text>
+                                            <Icon name='lock' size='large' fitted />
+                                        </InputGroup.Text>
+                                    </InputGroup.Prepend>
+                                    <Form.Control size='lg' name='password' type='password' placeholder='password' value={this.state.password} onChange={this.handleChange} />
+                                </InputGroup>
+                            </Form.Group>
+
+                            <Button variant='primary' type='submit' size='lg' block>Login</Button>
                         </Segment>
                     </Form>
-            
+
                     <Message>
                         New to us? <Link to='/signup' exact='true'>Sign Up</Link>
                     </Message>
-
                 </Grid.Column>
             </Grid>
         )
